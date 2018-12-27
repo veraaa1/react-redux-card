@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import Cart from './components/Cart/Cart'
+import {connect} from 'react-redux'
+import showLists from './actions'
 class App extends Component {
+  
+  componentDidMount() {
+    const {showLists}=this.props
+     showLists()
+  }
+  
   render() {
     return (
       <div>
@@ -10,4 +18,7 @@ class App extends Component {
   }
 }
 
-export default App;
+
+
+
+export default connect(null,{showLists})(App);
