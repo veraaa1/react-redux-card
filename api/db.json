@@ -1,0 +1,22 @@
+{
+    "products":[
+        {
+            "id":"123jkf",
+            "goodName":"天然酵母面包",
+            "price":3.5,
+            "inventory":5
+        },
+        {
+            "id":"45jkd3",
+            "goodName":"红豆面包",
+            "price":5,
+            "inventory":8
+        },
+        {
+            "id":"21j934",
+            "goodName":"起司面包",
+            "price":4.5,
+            "inventory":5
+        }
+    ]
+}
