@@ -1,16 +1,49 @@
 import React, { Component } from 'react';
+import {addCart,addCartList} from '../../actions'
+import {connect} from 'react-redux'
+import styled from 'styled-components';
+//这是自己写的
 class ProductList extends Component {
     render() {
-    const {goodlists}=this.props
+    const {goodlists,carts}=this.props
     console.log(goodlists);
-    
-    const showList = <ul>{goodlists.map(e=><li key={e.id}><div><p>{e.goodName}</p><p>{e.price}</p><button disabled={e.inventory!==0?false:true}>add to cart</button></div></li>)}</ul>
+    const showList = <Ul>{goodlists.map(e=><li key={e.id}><div><img src={e.goodImg} alt=""/><p>{e.goodName}</p><p>{e.price}元</p><p>剩余：{e.inventory}件</p><button disabled={e.inventory!==0?false:true} onClick={()=>{this.addCart(e.id,e.inventory)
+    this.addCartList(e.id,carts)
+    }}>add to cart</button></div></li>)}</Ul>
         return (
             <div>
                {showList?showList:<div>waiting</div>}
             </div>
         );
     }
+    addCart=(goodsId,inventory)=>{
+        const{addCart}=this.props
+        addCart(goodsId,inventory)
+    }
+    addCartList=(goodId,carts)=>{
+        const {addCartList}=this.props
+        addCartList(goodId,carts)
+    }
 }
 
-export default ProductList;
+export default connect(null,{addCart,addCartList})(ProductList);
+const Ul=styled.ul`
+list-style:none;
+display:flex;
+width:964px;
+margin:0 auto;
+justify-content:space-between;
+>li{
+    width:30%;
+    border:1px solid #ccc;
+    padding:10px;
+}
+>li>div{
+    width:100%;
+}
+>li>div>img{
+    width:100%;
+    display: block;
+    margin:0 auto;
+}
+`
