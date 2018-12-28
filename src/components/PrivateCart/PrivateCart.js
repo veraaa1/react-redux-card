@@ -29,7 +29,7 @@ class PrivateCart extends Component {
                    this.cutNum(e,carts)}}>-</button>
                <span>{carts.quantityById[e]}</span>
                <button onClick={()=>{
-                   this.addCart(e,carts)
+                   this.addCart(e,goodlists.find(ele=>ele.id===e).inventory)
                    this.addCartList(e,carts)
                }}>+</button>
                </div></li>})}

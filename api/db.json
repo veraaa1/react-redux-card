@@ -4,7 +4,7 @@
       "id": "123jkf",
       "goodName": "天然酵母面包",
       "price": 3.5,
-      "inventory": null,
+      "inventory": 96,
       "goodImg": "https://img12.360buyimg.com/n1/jfs/t11908/348/1612383109/416653/76abbb37/5a055e1bNf6e37dc1.jpg"
     },
     {
@@ -27,7 +27,7 @@
       "123jkf"
     ],
     "quantityById": {
-      "123jkf": 5
+      "123jkf": 9
     }
   }
 }

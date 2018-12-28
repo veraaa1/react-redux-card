@@ -14,3 +14,4 @@ const cart =(state=initCart,actions)=>{
     }
 }
 export default cart
+// reducer 的 case 里不能 const 同一个名字 会报错！
