@@ -4,30 +4,34 @@
       "id": "123jkf",
       "goodName": "天然酵母面包",
       "price": 3.5,
-      "inventory": 96,
+      "inventory": 104,
       "goodImg": "https://img12.360buyimg.com/n1/jfs/t11908/348/1612383109/416653/76abbb37/5a055e1bNf6e37dc1.jpg"
     },
     {
       "id": "45jkd3",
       "goodName": "红豆面包",
       "price": 5,
-      "inventory": 98,
+      "inventory": 92,
       "goodImg": "https://img12.360buyimg.com/n1/jfs/t1/2802/40/16610/556481/5be3b212Eaf276c59/86ea6171fd8d37f5.jpg"
     },
     {
       "id": "21j934",
       "goodName": "起司面包",
       "price": 4.5,
-      "inventory": 85,
+      "inventory": 23,
       "goodImg": "https://img13.360buyimg.com/n1/jfs/t11767/164/2632689531/206680/32e8594d/5a1bab1aN9205df96.jpg"
     }
   ],
   "carts": {
     "productId": [
+      "21j934",
+      "45jkd3",
       "123jkf"
     ],
     "quantityById": {
-      "123jkf": 9
+      "21j934": 3,
+      "45jkd3": 5,
+      "123jkf": 1
     }
   }
 }

@@ -8,7 +8,7 @@ class ProductList extends Component {
     const {goodlists,carts}=this.props
     console.log(goodlists);
     const showList = <Ul>{goodlists.map(e=><li key={e.id}><div><img src={e.goodImg} alt=""/><p>{e.goodName}</p><p>{e.price}元</p><p>剩余：{e.inventory}件</p><button disabled={e.inventory!==0?false:true} onClick={()=>{this.addCart(e.id,e.inventory)
-    this.addCartList(e.id,carts)
+    this.addCartList(e.id,carts,goodlists)
     }}>add to cart</button></div></li>)}</Ul>
         return (
             <div>
@@ -20,9 +20,9 @@ class ProductList extends Component {
         const{addCart}=this.props
         addCart(goodsId,inventory)
     }
-    addCartList=(goodId,carts)=>{
+    addCartList=(goodId,carts,goodlists)=>{
         const {addCartList}=this.props
-        addCartList(goodId,carts)
+        addCartList(goodId,carts,goodlists)
     }
 }
 
@@ -32,11 +32,12 @@ list-style:none;
 display:flex;
 width:964px;
 margin:0 auto;
-justify-content:space-between;
+justify-content:flex-start;
 >li{
-    width:30%;
+    width:15%;
     border:1px solid #ccc;
     padding:10px;
+    margin-left:5px;
 }
 >li>div{
     width:100%;
