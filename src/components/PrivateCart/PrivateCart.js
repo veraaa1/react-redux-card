@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {showCart,checkOut,addCartList,addCart,cutNum,removeCart} from '../../actions'
 import { connect } from 'react-redux';
 import styled from 'styled-components'
-import { isCartEmpty } from '../../selectors';
+import { isCartEmpty ,getTotal} from '../../selectors';
 class PrivateCart extends Component {
     state={
    
@@ -17,15 +17,6 @@ class PrivateCart extends Component {
         const {carts,goodlists}=this.props
         const{sureGood}=this.state
         console.log(sureGood);
-        
-       const newCartgood = sureGood?carts.productId.filter(ele=>{if(sureGood[ele]===true){return ele}}):[]
-       console.log(newCartgood);
-       const total = newCartgood.length?newCartgood.reduce((num,ele)=>{
-        return num = num+goodlists.find(e=>e.id===ele).price*carts.quantityById[ele]
-       },0):0
-        // const total = carts.productId.length && goodlists.length?carts.productId.reduce((num,ele,index,array)=>{
-        //    return num = num+goodlists.find(e=>e.id===ele).price*carts.quantityById[ele]
-        // },0):0
         // 已知cart 对象，goodlist数组
         return (
             <div>
@@ -47,7 +38,7 @@ class PrivateCart extends Component {
                </ul>:<p>Your Cart is empty！</p>} 
                <div>
                    {
-                       carts.productId.length && goodlists.length?<div>total:<span>{total}元</span><button onClick={this.checkOut}>结算</button></div>:<></>
+                       carts.productId.length && goodlists.length?<div>total:<span>{sureGood?getTotal(sureGood,carts,goodlists):0}元</span><button onClick={this.checkOut}>结算</button></div>:<></>
                    }
                </div>
             </div>
