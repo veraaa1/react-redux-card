@@ -1,4 +1,4 @@
-// 将很多个action进行管理
+// 将很多个action进行管理，此处可以放静态常量
 export const SHOW_LISTS="SHOW_LISTS"
 export const ADD_CART="ADD_CART"
 export const REMOVE_CART="REMOVE_CART"

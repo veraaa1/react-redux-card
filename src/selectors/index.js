@@ -15,3 +15,4 @@ export const getTotal =(sureGood,carts,goodlists)=>{
     },0):0
     return total
 }
+// selectors 文件夹计算衍生数据 Redux 理念就是不要在组件内进行各种各样的数据计算

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {addCart,addCartList} from '../../actions'
 import {connect} from 'react-redux'
 import styled from 'styled-components';
+import './productlist.scss'
 //这是自己写的
 class ProductList extends Component {
     render() {

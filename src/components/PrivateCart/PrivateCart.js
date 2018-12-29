@@ -3,6 +3,7 @@ import {showCart,checkOut,addCartList,addCart,cutNum,removeCart} from '../../act
 import { connect } from 'react-redux';
 import styled from 'styled-components'
 import { isCartEmpty ,getTotal} from '../../selectors';
+import './privatecart.scss'
 class PrivateCart extends Component {
     state={
    
@@ -26,11 +27,11 @@ class PrivateCart extends Component {
                    e=>{
                const good = goodlists.find(good=>good.id===e)
                return <li key={e.id}><input type="checkbox" onChange={()=>{this.onChecked(e)}}
-               checked={sureGood?sureGood[e.id]:false}></input> {good.goodName} <span>{good.price}元/个</span><div><button onClick={()=>{
+               checked={sureGood?sureGood[e.id]:false}></input> {good.goodName} <span>{good.price}元/个</span><div><button className="cut" onClick={()=>{
                    this.removeCart(e,goodlists.find(ele=>ele.id===e).inventory)
                    this.cutNum(e,carts)}}>-</button>
                <span>{carts.quantityById[e]}</span>
-               <button onClick={()=>{
+               <button className="add" onClick={()=>{
                    this.addCart(e,goodlists.find(ele=>ele.id===e).inventory)
                    this.addCartList(e,carts,goodlists)
                }}>+</button>

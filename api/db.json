@@ -18,7 +18,7 @@
       "id": "21j934",
       "goodName": "起司面包",
       "price": 4.5,
-      "inventory": 21,
+      "inventory": 16,
       "goodImg": "https://img13.360buyimg.com/n1/jfs/t11767/164/2632689531/206680/32e8594d/5a1bab1aN9205df96.jpg"
     }
   ],
@@ -29,7 +29,7 @@
       "123jkf"
     ],
     "quantityById": {
-      "21j934": 5,
+      "21j934": 10,
       "45jkd3": 2,
       "123jkf": 1
     }
