@@ -1,200 +1,109 @@
-import axios from 'axios';
-import * as actionTypes from '../constants';
+import axios from 'axios'
+import * as foodsType from '../constants/choosefood';
+import * as navType from '../constants/sidenav'
+import * as commentsType from '../constants/Rating'
+import * as cartsType from '../constants/footer'
+export const getFoods =()=>{
+    return dispatch=>axios.get(`http://129.204.120.66:3008/goods`).then(res=>{
+     
+        dispatch({
+            type:foodsType.GET_FOODS,
+            allfoods:res.data
+        })
+    })
+}
 
-// 为了部署数据
-export const showLists=()=>{
-    return (dispatch)=>{
-        axios.get('https://raw.githubusercontent.com/veraaa1/react-redux-card/master/api/db.json').then(res=>{
-            console.log(res.data);
-            
+//获取导航
+export const getNav=()=>{
+    return dispatch=>{
+        axios.get(`http://129.204.120.66:3008/goods`).then(res=>{
+            const allnav = res.data.map(e=>e.name)
             dispatch({
-                type:actionTypes.SHOW_LISTS,
-                goodlists:res.data.products
+                type:navType.GET_NAV,
+                nav:allnav
             })
         })
     }
-
 }
-export const addCart=(goodsId,inventory)=>{
-return {
-   
-                type:actionTypes.ADD_CART,
-                goodsId
-    
+
+//获取评论
+export const getComments=()=>{
+    return dispatch=>{
+        axios.get(`http://129.204.120.66:3008/ratings`).then(res=>{
+            dispatch({
+                type:commentsType.GET_RATING,
+                comments:res.data
+            })
+        })
     }
 }
-export const removeCart=(goodsId,inventory)=>{
-    return {
-            type:actionTypes.REMOVE_CART,
-            goodsId
+//获取购物车
+
+export const getCart=()=>{
+    return dispatch=>{
+        axios.get(`http://129.204.120.66:3008/carts`).then(res=>{
+            dispatch({
+                type:cartsType.GET_CART,
+                cart:res.data
+            })
+        })
+    }
+}
+
+//加入购物车
+export const addCart=(cart,name)=>{
+    if(cart.product.indexOf(name)===-1){
+        cart.product.push(name)
+        cart.num[name]=1
+    }
+   else{
+    cart.num[name]++
+   }
+    return dispatch=>{
+        axios.patch(`http://129.204.120.66:3008/carts`,cart).then(res=>{
+            dispatch({
+                type:cartsType.ADD_CART,
+                cart:res.data
+            })
+        })
+    }
+}
+//减少数量
+export const cutCart=(cart,name)=>{
+    if(cart.num[name]>1){
+        console.log(cart.num[name]);
+        cart.num[name]--
+    }
+   else{
+    cart.product.splice(cart.product.indexOf(name),1)
+    delete cart.num[name]
+   }
+console.log(cart);
+
+    return dispatch=>{
+       console.log(222);
        
-   
-    }}
-export const addCartList=(goodId,carts,goodlists)=>{
-    return (dispatch)=>{
-    const newCarts = {...carts}    
-    if(newCarts.productId.indexOf(goodId)===-1){
-        newCarts.productId.push(goodId)
-        newCarts.quantityById[goodId]=1
-    }else{
-        
-        if(goodlists.find(e=>e.id===goodId).inventory!==0){
-            newCarts.quantityById[goodId]++
-        }else{
-            alert("库存不足！！！")
-        }
-        
-    }
-        dispatch({
-            type:actionTypes.UPDATE_CARTLIST,
-            cartObj:newCarts
+        axios.patch(`http://129.204.120.66:3008/carts`,cart).then(res=>{
+            console.log(res.data);
+            dispatch({
+                type:cartsType.DEL_CART,
+                cart:res.data
+            })
         })
-    
-}}
-
-export const showCart =()=>{
-    return (dispatch)=>{
-    axios.get(`https://raw.githubusercontent.com/veraaa1/react-redux-card/master/api/db.json`).then(res=>{
-        dispatch({
-            type:actionTypes.SHOW_CART,
-            cartObj:res.data.carts
-        })
-    })}
-}
-
-export const checkOut=()=>{
-    const nullObj={
-        productId:[],
-        quantityById:{}
-    }
-    return{
-   
-            type:actionTypes.CHECK_IT_OUT,
-            nullObj
-    
     }
 }
-
-export const cutNum =(goodId,carts)=>{
- return dispatch=>{
-    const newCarts = {...carts}    
-    if(newCarts.quantityById[goodId]>1){
-        newCarts.quantityById[goodId]--
-    }else{
-        console.log(newCarts.productId);
-        
-        newCarts.productId = newCarts.productId.filter(e=>e!==goodId)
-        delete newCarts.quantityById[goodId]
+//清空购物车
+export const blankCart = ()=>{
+    const cart = {
+        product:[],
+        num:{}
     }
-   
-        dispatch({
-            type:actionTypes.CUT_ITEM_NUM,
-            newCarts
+    return dispatch=>{
+        axios.patch(`http://129.204.120.66:3008/carts`,cart).then(()=>{
+            dispatch({
+                type:cartsType.BLANK_CART,
+                cart:cart
+            })
         })
-  
- }
+    }
 }
-// 将action 导出的东西全部放在 actionTypes 对象内
-// export const showLists=()=>{
-//     return (dispatch)=>{
-//         axios.get('http://localhost:3008/products').then(res=>{
-            
-//             dispatch({
-//                 type:actionTypes.SHOW_LISTS,
-//                 goodlists:res.data
-//             })
-//         })
-//     }
-
-// }
-
-// export const addCart=(goodsId,inventory)=>{
-// return (dispatch)=>{
-//     if(inventory>0){
-//         axios.patch(`http://localhost:3008/products/${goodsId}`,{inventory:inventory-1}).then(res=>{
-//             dispatch({
-//                 type:actionTypes.ADD_CART,
-//                 goodsId
-//             })
-//         })
-//     }
-// }}
-
-// export const removeCart=(goodsId,inventory)=>{
-//     return (dispatch)=>{axios.patch(`http://localhost:3008/products/${goodsId}`,{inventory:inventory+1}).then(res=>{
-//         dispatch({
-//             type:actionTypes.REMOVE_CART,
-//             goodsId
-//         })
-//     })
-//     }}
-// //这是自己写的瞎写的
-// export const addCartList=(goodId,carts,goodlists)=>{
-//     return (dispatch)=>{
-//     const newCarts = {...carts}    
-//     if(newCarts.productId.indexOf(goodId)===-1){
-//         newCarts.productId.push(goodId)
-//         newCarts.quantityById[goodId]=1
-//     }else{
-        
-//         if(goodlists.find(e=>e.id===goodId).inventory!==0){
-//             newCarts.quantityById[goodId]++
-//         }else{
-//             alert("库存不足！！！")
-//         }
-        
-//     }
-//     console.log(newCarts);
-//     axios.patch('http://localhost:3008/carts',newCarts).then(res=>{
-//         dispatch({
-//             type:actionTypes.UPDATE_CARTLIST,
-//             cartObj:res.data
-//         })
-//     })
-// }}
-
-// export const showCart =()=>{
-//     return (dispatch)=>{
-//     axios.get(`http://localhost:3008/carts`).then(res=>{
-//         dispatch({
-//             type:actionTypes.SHOW_CART,
-//             cartObj:res.data
-//         })
-//     })}
-// }
-
-// export const checkOut=()=>{
-//     const nullObj={
-//         productId:[],
-//         quantityById:{}
-//     }
-//     return (dispatch)=>{
-//     axios.patch(`http://localhost:3008/carts`,nullObj).then(res=>{
-//         dispatch({
-//             type:actionTypes.CHECK_IT_OUT,
-//             nullObj
-//         })
-//     })
-       
-//     }
-// }
-
-// export const cutNum =(goodId,carts)=>{
-//  return dispatch=>{
-//     const newCarts = {...carts}    
-//     if(newCarts.quantityById[goodId]>1){
-//         newCarts.quantityById[goodId]--
-//     }else{
-//         console.log(newCarts.productId);
-        
-//         newCarts.productId = newCarts.productId.filter(e=>e!==goodId)
-//         delete newCarts.quantityById[goodId]
-//     }
-//     axios.patch(`http://localhost:3008/carts`,newCarts).then(res=>{
-//         dispatch({
-//             type:actionTypes.CUT_ITEM_NUM,
-//             newCarts
-//         })
-//     })
-//  }
-// }
